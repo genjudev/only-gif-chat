@@ -1,6 +1,5 @@
 const tenorApi = new URL(process.env.REACT_APP_TENOR_API_URL || "https://g.tenor.com/v1/"); 
 const searchUrl = new URL("/v1/search", tenorApi)
-console.log("PROCESSENV", process.env);
 
 export const getTop8 = async () => {
     const params = new URLSearchParams([["q","excited"], ["limit", "8"], ["key", process.env.REACT_APP_TENOR_API_KEY || ""]])

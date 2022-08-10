@@ -25,14 +25,17 @@ type TResponse = {
 
 }
 
-const Picker: React.FC = () => {
+type Props = {
+    onClick: (url: string) => void;
+}
+
+const Picker: React.FC<Props> = ({onClick}) => {
     const [open, setOpen] = React.useState(false);
     const [gifs, setGifs] = React.useState<any[]>([]);
 
     React.useEffect(() => {
         getTop8().then(({results}: {results: TResponse[]}) => {
             if(!results) return;
-            console.log("DATA", results);
             const allGifs = results.map((res: any) => {
                 return res.media[0]["gif"].url;
             });
@@ -41,7 +44,7 @@ const Picker: React.FC = () => {
     },[])
     return <>
         <button onClick={() => setOpen(!open)}>Open</button>
-        {open && <ImageRaster gifs={gifs} />}
+        {open && <ImageRaster onClick={onClick} gifs={gifs} />}
     </>
 }
 

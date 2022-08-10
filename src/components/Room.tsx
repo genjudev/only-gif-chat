@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Room as SRoom, SocketAPIEvents } from "../libs/SocketAPI";
 import { socketApi } from "../services/SocketAPI";
+import Image from "./Tenor/Image";
 
 type CustomEventDetail = {
     detail: SRoom;
@@ -26,7 +27,7 @@ const Room: React.FC<Props> = ({room}) => {
     return (<><h1>{room.id}</h1>
         <ul>
         {messages.map((msg: string, i: number) => {
-            return <li key={i}>{msg}</li>
+            return <>{msg.length <= 2 ? <></> : <li key={i}>{<Image url={msg} height={120} width={120} />}</li>}</>
         })}
     </ul></>)
 }

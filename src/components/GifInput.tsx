@@ -8,7 +8,7 @@ type Props = {
 
 const GifInput: React.FC<Props> = ({room}) => {
     return <>
-        <Picker />
+        <Picker onClick={(url: string) => socketApi.sendGif(url, room)} />
     </>
 }
 export default GifInput;
