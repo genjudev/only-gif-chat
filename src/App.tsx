@@ -1,14 +1,13 @@
 import React from 'react';
 import './App.css';
-
-import { socketApi } from './services/SocketAPI';
 import TestInput from './components/TestInput';
+import RoomList from './components/RoomList';
 
 function App() {
-  console.log("SOCKET API", socketApi);
   return (
     <div className="App">
       <TestInput />
+      <RoomList />
     </div>
   );
 }
