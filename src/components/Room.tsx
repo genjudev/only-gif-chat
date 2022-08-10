@@ -1,13 +1,32 @@
 import * as React from "react";
-import { Message, Room as SRoom } from "../libs/SocketAPI";
+import { Room as SRoom, SocketAPIEvents } from "../libs/SocketAPI";
+import { socketApi } from "../services/SocketAPI";
+
+type CustomEventDetail = {
+    detail: SRoom;
+}
+
 type Props = {
     room: SRoom;
 }
 const Room: React.FC<Props> = ({room}) => {
+    const [messages, setMessages] = React.useState<any>([room.messages]);
+    React.useEffect(() => {
+        const updateMesages =  ({detail}: CustomEventDetail) => {
+            if(detail.id === room.id) {
+                setMessages(detail.messages);
+            }
+        }
+        socketApi.addEventListener(SocketAPIEvents.ROOM_UPDATE, updateMesages)
+
+        return () => {
+            socketApi.removeEventListener(SocketAPIEvents.ROOM_UPDATE, updateMesages)
+        }
+    })
     return (<><h1>{room.id}</h1>
         <ul>
-        {room.messages.map((msg: Message, i: number) => {
-            return <li key={i}>{msg.url}</li>
+        {messages.map((msg: string, i: number) => {
+            return <li key={i}>{msg}</li>
         })}
     </ul></>)
 }

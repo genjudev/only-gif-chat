@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import GifInput from './components/GifInput';
 import Room from './components/Room';
 import RoomList from './components/RoomList';
 import { Room as SRoom } from './libs/SocketAPI';
@@ -10,7 +11,11 @@ function App() {
   return (
     <div>
       <RoomList onClick={(r: string) => setRoom(socketApi.getRoom(r))} />
-      {room  && <Room room={room} />}
+      {room  && <>
+        <Room room={room} />
+        <GifInput room={room.id} />
+      </> }
+      
       
     </div>
   );

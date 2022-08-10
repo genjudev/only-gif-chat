@@ -33,18 +33,19 @@ const RoomList: React.FC<Props> = ({onClick}) => {
     })
  
     return (<>
-    <input type="text" value={inputvalue} onChange={(e)=> setInputValue(e.currentTarget.value)} placeholder="room name..." /><button onClick={(e) => {
-         socketApi.joinRoom(inputvalue);
-         setInputValue("");
-        }}>Join</button>
-    <br />
-    <p>room name at least 3 character</p>
-    <br/>
-    <ul>
-        {rooms.map((room: string, i: number) => {
-            return <li key={"l_" + i} onClick={() => onClick(room)}>{room}</li>
-        })}
-    </ul></>)
+                <input type="text" value={inputvalue} onChange={(e)=> setInputValue(e.currentTarget.value)} placeholder="room name..." /><button onClick={(e) => {
+                    socketApi.joinRoom(inputvalue);
+                    setInputValue("");
+                    }}>Join</button>
+                <br />
+                <p>room name at least 3 character</p>
+                <br/>
+                <ul>
+                    {rooms.map((room: string, i: number) => {
+                        return <li key={"l_" + i} onClick={() => onClick(room)}>{room}</li>
+                    })}
+                </ul></>
+            )
    
 }
 
