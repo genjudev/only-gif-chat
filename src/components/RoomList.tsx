@@ -5,8 +5,13 @@ import { Room, SocketAPIEvents } from "../libs/SocketAPI";
 type CustomEventDetail = {
     detail: string;
 }
-const RoomList: React.FC = () => {
+
+type Props = {
+    onClick: (room: string) => void;
+}
+const RoomList: React.FC<Props> = ({onClick}) => {
     const [rooms, setRooms] = React.useState<string[]>([]);
+    const [inputvalue, setInputValue] = React.useState<string>("");
 
     React.useEffect(() => {
         socketApi.addEventListener(
@@ -27,11 +32,19 @@ const RoomList: React.FC = () => {
         }
     })
  
-    return (<ul>
+    return (<>
+    <input type="text" value={inputvalue} onChange={(e)=> setInputValue(e.currentTarget.value)} placeholder="room name..." /><button onClick={(e) => {
+         socketApi.joinRoom(inputvalue);
+         setInputValue("");
+        }}>Join</button>
+    <br />
+    <p>room name at least 3 character</p>
+    <br/>
+    <ul>
         {rooms.map((room: string, i: number) => {
-            return <li key={"l_" + i}>{room}</li>
+            return <li key={"l_" + i} onClick={() => onClick(room)}>{room}</li>
         })}
-    </ul>)
+    </ul></>)
    
 }
 

@@ -46,6 +46,7 @@ export default class SocketAPI extends DelegatedEventTarget {
     }
     
     joinRoom = (room: string) => {
+        if(room.length < 3) return;
         const found = this.rooms.find(r => r.id === room);
         if(!found) {
             const newRoom = {
@@ -68,6 +69,10 @@ export default class SocketAPI extends DelegatedEventTarget {
         this.socket.emit(SocketEvents.ROOM_LEAVE, room);
         this.dispatchEvent(createEvent(SocketAPIEvents.ROOM_LEAVE, room ));
         return room
+    }
+
+    getRoom = (room: string) => {
+        return this.rooms.find(r => r.id === room);
     }
 
 

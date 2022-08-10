@@ -1,13 +1,17 @@
 import React from 'react';
 import './App.css';
-import TestInput from './components/TestInput';
+import Room from './components/Room';
 import RoomList from './components/RoomList';
+import { Room as SRoom } from './libs/SocketAPI';
+import { socketApi } from './services/SocketAPI';
 
 function App() {
+  const [room, setRoom] = React.useState<SRoom | undefined>(undefined);
   return (
-    <div className="App">
-      <TestInput />
-      <RoomList />
+    <div>
+      <RoomList onClick={(r: string) => setRoom(socketApi.getRoom(r))} />
+      {room  && <Room room={room} />}
+      
     </div>
   );
 }
