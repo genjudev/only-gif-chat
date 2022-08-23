@@ -27,7 +27,7 @@ const Room: React.FC<Props> = ({room}) => {
     return (<><h1>{room.id}</h1>
         <ul>
         {messages.map((msg: string, i: number) => {
-            return <>{msg.length <= 2 ? <></> : <li key={i}>{<Image url={msg} height={120} width={120} />}</li>}</>
+            return msg.length > 2  &&  <li key={i}>{<Image url={msg} height={120} width={120} />}</li>
         })}
     </ul></>)
 }
