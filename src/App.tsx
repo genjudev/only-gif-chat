@@ -15,8 +15,6 @@ function App() {
         <Room room={room} />
         <GifInput room={room.id} />
       </> }
-      
-      
     </div>
   );
 }
